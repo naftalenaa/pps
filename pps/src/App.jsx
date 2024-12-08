@@ -197,7 +197,6 @@ export default function ProductPage() {
           <div className="text-center text-gray-500">Product Tidak Ditemukan
           </div>
         )
-
         }
         {loading ? (
           <div className="text-center text-gray-500">Loading products...</div>
