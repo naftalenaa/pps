@@ -27,8 +27,14 @@ app.post('/categories', (req, res) => {
 
 // Read all categories
 app.get('/categories', (req, res) => {
-    const querySql = 'SELECT * FROM categories';
-    koneksi.query(querySql, (err, rows) => {
+    const { keyword } = req.query; // Filter berdasarkan keyword (opsional)
+    let querySql = 'SELECT * FROM categories';
+
+    if (keyword) {
+        querySql += ' WHERE category_name LIKE ?';
+    }
+
+    koneksi.query(querySql, keyword ? [`%${keyword}%`] : [], (err, rows) => {
         if (err) {
             return res.status(500).json({ message: 'Failed to fetch categories', error: err });
         }
